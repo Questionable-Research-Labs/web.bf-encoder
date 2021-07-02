@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BF-Web Encoder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Roboto", 'Arial', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #171b26;
+        }
+
+        .header {
+            display: block;
+            padding: 1em;
+            color: white;
+            background-color: #352f80;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .header__title {
+            letter-spacing: 2px;
+        }
+
+        .input-area {
+            display: block;
+            width: 100%;
+            padding: 1em;
+            background-color: #292d39;
+            border: 1px solid gray;
+            resize: none;
+            margin: 1em auto;
+            color: white;
+        }
+
+        .main {
+            display: block;
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .button {
+            display: block;
+            padding: 1em;
+            border: none;
+            background-color: #352f80;
+            color: white;
+            width: 100%;
+            font-size: 1.25em;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .text {
+            display: block;
+            margin-top: 2em;
+            margin-bottom: 1em;
+            color: gray;
+        }
+        .hidden {
+            display: none !important;
+        }
+        .output {
+            display: block;
+            padding: 1em;
+            margin: 1em;
+            color: white;
+            background-color: #352f80;
+        }
+    </style>
+</head>
+<body>
+<header class="header">
+    <h1 class="header__title">BF-Web Encoder</h1>
+</header>
+<main class="main">
+    <label for="content" class="text">Enter your code</label><textarea class="input-area" cols="20" rows="20"
+                                                                       id="content" placeholder="BF Code"></textarea>
+    <button class="button" onclick="setURL();">Encode</button>
+    <a href="" class="output hidden" id="output"></a>
+</main>
+<script>
+    /**
+     *  Gets the provided brainfuck code from the text area
+     *  and encodes it into a url for the static page
+     *
+     *  @return {String} The encoded url
+     */
+    function encode() {
+        // Retrieve the text area element by its ID
+        const contentElement = document.getElementById('content');
+        const content = contentElement.value; // Get the value of the element
+        const encoded = btoa(content); // Base64 encode the result
+        return 'https://bf-web.host.qrl.nz' + encoded;
+    }
+
+    function setURL() {
+        const encoded = encode();
+        const urlElement = document.getElementById('output');
+        urlElement.innerText = encoded;
+        urlElement.href = encoded;
+        urlElement.classList.remove('hidden')
+    }
+</script>
+</body>
+</html>

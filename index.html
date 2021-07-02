@@ -90,6 +90,8 @@
     <a href="" class="output hidden" id="output"></a>
 </main>
 <script>
+    const urlElement = document.getElementById('output');
+
     /**
      *  Gets the provided brainfuck code from the text area
      *  and encodes it into a url for the static page
@@ -101,15 +103,28 @@
         const contentElement = document.getElementById('content');
         const content = contentElement.value; // Get the value of the element
         const encoded = btoa(content); // Base64 encode the result
-        return 'https://bf-web.host.qrl.nz' + encoded;
+        return 'https://bf-web.host.qrl.nz/' + encoded;
     }
 
     function setURL() {
         const encoded = encode();
-        const urlElement = document.getElementById('output');
         urlElement.innerText = encoded;
         urlElement.href = encoded;
-        urlElement.classList.remove('hidden')
+        urlElement.classList.remove('hidden');
+        copyToClipboard(encoded)
+        alert('Copied to clipboard')
+    }
+
+
+    function copyToClipboard (str) {
+        const el = document.createElement('textarea');
+        el.value = str;
+        el.setAttribute('readonly', '');
+        el.style.display = "hidden";
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
     }
 </script>
 </body>
